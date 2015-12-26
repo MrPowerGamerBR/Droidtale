@@ -32,6 +32,7 @@ import java.util.zip.ZipOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
 
 public class Droidtale {
 
@@ -41,6 +42,7 @@ public class Droidtale {
 	private JLabel lblInvalidFolderdatawin;
 	private JLabel label;
 	private JButton btnCreateUndertaleApk;
+	private JProgressBar progressBar;
 
 	/**
 	 * Launch the application.
@@ -89,7 +91,7 @@ public class Droidtale {
 	private void initialize() {
 		frmDroidtale = new JFrame();
 		frmDroidtale.setTitle("Droidtale");
-		frmDroidtale.setBounds(100, 100, 450, 387);
+		frmDroidtale.setBounds(100, 100, 450, 425);
 		frmDroidtale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDroidtale.getContentPane().setLayout(null);
 
@@ -134,6 +136,8 @@ public class Droidtale {
 				try {
 					String[] fileArray = { "assets/game.droid" };
 					deleteZipEntry(new File("C:\\Users\\User\\Desktop\\UndertaleWrapper.apk"), fileArray);
+					progressBar.setValue(25);
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -168,15 +172,21 @@ public class Droidtale {
 				try( FileSystem fs = FileSystems.newFileSystem(zipFilePath, null) ){
 					Path fileInsideZipPath = fs.getPath("/assets/game.droid");
 					Files.copy(myFilePath, fileInsideZipPath);
+					progressBar.setValue(50);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				progressBar.setValue(100);
 			}
 		});
 		btnCreateUndertaleApk.setEnabled(false);
 		btnCreateUndertaleApk.setBounds(114, 304, 217, 25);
 		frmDroidtale.getContentPane().add(btnCreateUndertaleApk);
+		
+		progressBar = new JProgressBar();
+		progressBar.setBounds(12, 342, 408, 25);
+		frmDroidtale.getContentPane().add(progressBar);
 	}
 
 	public Droidtale getMe() {
