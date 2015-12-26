@@ -3,36 +3,28 @@ package me.mrpowergamerbr.Droidtale;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JProgressBar;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
-
-import java.awt.FlowLayout;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -137,6 +129,7 @@ public class Droidtale {
 		btnCreateUndertaleApk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Action");
+				playSound("flowey.wav");
 
 				try {
 					String[] fileArray = { "assets/game.droid" };
@@ -161,14 +154,14 @@ public class Droidtale {
 					System.out.println(entry.getName());
 					// InputStream stream = zipFile.getInputStream(entry);
 				}
-				
+
 				try {
 					zipFile.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 				Path myFilePath = Paths.get(path + File.separator + "data.win");
 
 				Path zipFilePath = Paths.get("C:\\Users\\User\\Desktop\\UndertaleWrapper.apk");
@@ -266,5 +259,30 @@ public class Droidtale {
 		// Complete the ZIP file
 		zout.close();
 		tempFile.delete();
+	}
+
+	public static void playSound(final String url) {
+		Clip clip = null;
+		try {
+			clip = AudioSystem.getClip();
+		} catch (LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		AudioInputStream inputStream = null;
+		try {
+			inputStream = AudioSystem.getAudioInputStream(
+					Droidtale.class.getResourceAsStream("/me/mrpowergamerbr/Droidtale/" + url));
+		} catch (UnsupportedAudioFileException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			clip.open(inputStream);
+		} catch (LineUnavailableException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		clip.start(); 
 	}
 }
