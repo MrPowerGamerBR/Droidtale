@@ -10,7 +10,7 @@ So... "UNDERTALE.EXE" is only a fancy runner for the "data.win" file, all of the
 
 Based on this topic on /r/Underminers ( https://www.reddit.com/r/Underminers/comments/3xfbfn/attention_linux_users_native_is_possible/ ), I decided to do the same thing, but with the Android runner, and, it worked!
 
-## Known Issue
+## Known Issues
 
 * Needs a Joystick/Gamepad
 
