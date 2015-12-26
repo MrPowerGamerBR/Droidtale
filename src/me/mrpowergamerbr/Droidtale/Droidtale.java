@@ -14,12 +14,12 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.io.InputStream;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -93,7 +93,7 @@ public class Droidtale {
 	private void initialize() {
 		frmDroidtale = new JFrame();
 		frmDroidtale.setTitle("Droidtale");
-		frmDroidtale.setBounds(100, 100, 450, 187);
+		frmDroidtale.setBounds(100, 100, 450, 209);
 		frmDroidtale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDroidtale.getContentPane().setLayout(null);
 
@@ -123,7 +123,7 @@ public class Droidtale {
 		frmDroidtale.getContentPane().add(lblInvalidFolderdatawin);
 
 		label = new JLabel("");
-		label.setBounds(12, 80, 203, 16);
+		label.setBounds(12, 69, 203, 16);
 		frmDroidtale.getContentPane().add(label);
 
 		btnCreateUndertaleApk = new JButton("Create Undertale APK");
@@ -135,7 +135,7 @@ public class Droidtale {
 
 				try {
 					String[] fileArray = { "assets/game.droid" };
-					deleteZipEntry(new File("C:\\Users\\User\\Desktop\\UndertaleWrapper.apk"), fileArray);
+					deleteZipEntry(new File("./UndertaleWrapper.apk"), fileArray);
 					progressBar.setValue(25);
 
 				} catch (IOException e) {
@@ -145,7 +145,7 @@ public class Droidtale {
 
 				ZipFile zipFile = null;
 				try {
-					zipFile = new ZipFile("C:\\Users\\User\\Desktop\\UndertaleWrapper.apk");
+					zipFile = new ZipFile("./UndertaleWrapper.apk");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -168,7 +168,7 @@ public class Droidtale {
 
 				Path myFilePath = Paths.get(path + File.separator + "data.win");
 
-				Path zipFilePath = Paths.get("C:\\Users\\User\\Desktop\\UndertaleWrapper.apk");
+				Path zipFilePath = Paths.get("./UndertaleWrapper.apk");
 				try( FileSystem fs = FileSystems.newFileSystem(zipFilePath, null) ){
 					Path fileInsideZipPath = fs.getPath("/assets/game.droid");
 					Files.copy(myFilePath, fileInsideZipPath);
@@ -181,11 +181,11 @@ public class Droidtale {
 			}
 		});
 		btnCreateUndertaleApk.setEnabled(false);
-		btnCreateUndertaleApk.setBounds(116, 80, 217, 25);
+		btnCreateUndertaleApk.setBounds(117, 88, 217, 25);
 		frmDroidtale.getContentPane().add(btnCreateUndertaleApk);
 
 		progressBar = new JProgressBar();
-		progressBar.setBounds(12, 109, 408, 25);
+		progressBar.setBounds(12, 126, 408, 25);
 		frmDroidtale.getContentPane().add(progressBar);
 	}
 
@@ -282,28 +282,27 @@ public class Droidtale {
 		tempFile.delete();
 	}
 
-	public static void playSound(final String url) {
-		Clip clip = null;
+	public void playSound(final String url) {
+		//read audio data from whatever source (file/classloader/etc.)
+		InputStream audioSrc = Droidtale.class.getResourceAsStream("/me/mrpowergamerbr/Droidtale/" + url);
+		//add buffer for mark/reset support
+		InputStream bufferedIn = new BufferedInputStream(audioSrc);
 		try {
-			clip = AudioSystem.getClip();
-		} catch (LineUnavailableException e1) {
+			AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+			
+			Clip clip = AudioSystem.getClip();
+			
+			clip.open(audioStream);
+			
+			clip.start();
+			
+			
+		} catch (UnsupportedAudioFileException | IOException e2) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		AudioInputStream inputStream = null;
-		try {
-			inputStream = AudioSystem.getAudioInputStream(
-					Droidtale.class.getResourceAsStream("/me/mrpowergamerbr/Droidtale/" + url));
-		} catch (UnsupportedAudioFileException | IOException e) {
+			e2.printStackTrace();
+		} catch (LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			clip.open(inputStream);
-		} catch (LineUnavailableException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		clip.start(); 
 	}
 }
