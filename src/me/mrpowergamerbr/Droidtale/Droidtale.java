@@ -90,6 +90,7 @@ public class Droidtale {
 	 */
 	private void initialize() {
 		frmDroidtale = new JFrame();
+		frmDroidtale.setResizable(false);
 		frmDroidtale.setTitle("Droidtale");
 		frmDroidtale.setBounds(100, 100, 450, 187);
 		frmDroidtale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
