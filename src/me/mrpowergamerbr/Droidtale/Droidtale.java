@@ -91,13 +91,9 @@ public class Droidtale {
 	private void initialize() {
 		frmDroidtale = new JFrame();
 		frmDroidtale.setTitle("Droidtale");
-		frmDroidtale.setBounds(100, 100, 450, 425);
+		frmDroidtale.setBounds(100, 100, 450, 187);
 		frmDroidtale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDroidtale.getContentPane().setLayout(null);
-
-		JCheckBox chckbxSteamVersion = new JCheckBox("Steam Version");
-		chckbxSteamVersion.setBounds(157, 9, 113, 43);
-		frmDroidtale.getContentPane().add(chckbxSteamVersion);
 
 		JButton btnSetUndertaleFolder = new JButton("Set Undertale Folder");
 		btnSetUndertaleFolder.addActionListener(new ActionListener() {
@@ -110,21 +106,21 @@ public class Droidtale {
 				}
 			}
 		});
-		btnSetUndertaleFolder.setBounds(12, 187, 162, 25);
+		btnSetUndertaleFolder.setBounds(12, 13, 162, 25);
 		frmDroidtale.getContentPane().add(btnSetUndertaleFolder);
 
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(180, 188, 240, 22);
+		textField.setBounds(180, 14, 240, 22);
 		frmDroidtale.getContentPane().add(textField);
 		textField.setColumns(10);
 
 		lblInvalidFolderdatawin = new JLabel("Invalid Folder! \"data.win\" missing!");
-		lblInvalidFolderdatawin.setBounds(12, 225, 203, 16);
+		lblInvalidFolderdatawin.setBounds(12, 51, 203, 16);
 		frmDroidtale.getContentPane().add(lblInvalidFolderdatawin);
 
 		label = new JLabel("");
-		label.setBounds(12, 242, 203, 16);
+		label.setBounds(12, 80, 203, 16);
 		frmDroidtale.getContentPane().add(label);
 
 		btnCreateUndertaleApk = new JButton("Create Undertale APK");
@@ -181,11 +177,11 @@ public class Droidtale {
 			}
 		});
 		btnCreateUndertaleApk.setEnabled(false);
-		btnCreateUndertaleApk.setBounds(114, 304, 217, 25);
+		btnCreateUndertaleApk.setBounds(116, 80, 217, 25);
 		frmDroidtale.getContentPane().add(btnCreateUndertaleApk);
 		
 		progressBar = new JProgressBar();
-		progressBar.setBounds(12, 342, 408, 25);
+		progressBar.setBounds(12, 109, 408, 25);
 		frmDroidtale.getContentPane().add(progressBar);
 	}
 
