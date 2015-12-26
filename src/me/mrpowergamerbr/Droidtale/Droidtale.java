@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -19,6 +18,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -67,6 +68,7 @@ public class Droidtale {
 		}
 
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Droidtale window = new Droidtale();
@@ -90,7 +92,6 @@ public class Droidtale {
 	 */
 	private void initialize() {
 		frmDroidtale = new JFrame();
-		frmDroidtale.setResizable(false);
 		frmDroidtale.setTitle("Droidtale");
 		frmDroidtale.setBounds(100, 100, 450, 187);
 		frmDroidtale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,6 +99,7 @@ public class Droidtale {
 
 		JButton btnSetUndertaleFolder = new JButton("Set Undertale Folder");
 		btnSetUndertaleFolder.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser j = new JFileChooser();
 				j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -117,7 +119,7 @@ public class Droidtale {
 		textField.setColumns(10);
 
 		lblInvalidFolderdatawin = new JLabel("Invalid Folder! \"data.win\" missing!");
-		lblInvalidFolderdatawin.setBounds(12, 51, 203, 16);
+		lblInvalidFolderdatawin.setBounds(12, 51, 408, 16);
 		frmDroidtale.getContentPane().add(lblInvalidFolderdatawin);
 
 		label = new JLabel("");
@@ -126,6 +128,7 @@ public class Droidtale {
 
 		btnCreateUndertaleApk = new JButton("Create Undertale APK");
 		btnCreateUndertaleApk.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Action");
 				playSound("flowey.wav");
@@ -134,7 +137,7 @@ public class Droidtale {
 					String[] fileArray = { "assets/game.droid" };
 					deleteZipEntry(new File("C:\\Users\\User\\Desktop\\UndertaleWrapper.apk"), fileArray);
 					progressBar.setValue(25);
-					
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -180,7 +183,7 @@ public class Droidtale {
 		btnCreateUndertaleApk.setEnabled(false);
 		btnCreateUndertaleApk.setBounds(116, 80, 217, 25);
 		frmDroidtale.getContentPane().add(btnCreateUndertaleApk);
-		
+
 		progressBar = new JProgressBar();
 		progressBar.setBounds(12, 109, 408, 25);
 		frmDroidtale.getContentPane().add(progressBar);
@@ -194,16 +197,23 @@ public class Droidtale {
 		path = file.toString();
 		textField.setText(file.toString());
 
-		if (isAValidUndertaleFolder(file)) {
+		UndertaleValidFolder uvf = isAValidUndertaleFolder(file);
+		if (uvf.equals(UndertaleValidFolder.VALID_FOLDER)) {
 			lblInvalidFolderdatawin.setText("Valid Undertale Installation!");
 			btnCreateUndertaleApk.setEnabled(true);
-		} else {
-			lblInvalidFolderdatawin = new JLabel("Invalid Folder! \"data.win\" missing!");
+			return;
+		} else if (uvf.equals(UndertaleValidFolder.STEAM_VERSION)) {
+			lblInvalidFolderdatawin.setText("Steam Version is Unsupported! Please open the UNDERTALE.exe in 7zip to extract it!");
 			btnCreateUndertaleApk.setEnabled(false);
+			return;
+		} else {
+			lblInvalidFolderdatawin.setText("Invalid Folder! \"data.win\" missing!");
+			btnCreateUndertaleApk.setEnabled(false);
+			return;
 		}
 	}
 
-	public boolean isAValidUndertaleFolder(final File folder) {
+	public UndertaleValidFolder isAValidUndertaleFolder(final File folder) {
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 
@@ -215,11 +225,15 @@ public class Droidtale {
 					label.setText("Please buy Undertale :)");
 				}
 				if (fileEntry.getName().equalsIgnoreCase("data.win")) {
-					return true;
+					return UndertaleValidFolder.VALID_FOLDER;
+				}
+				if (fileEntry.getName().equalsIgnoreCase("UNDERTALE.exe")) {
+					System.out.println("Steam");
+					return UndertaleValidFolder.STEAM_VERSION;
 				}
 			}
 		}
-		return false;
+		return UndertaleValidFolder.NOT_FOUND;
 	}
 
 	public static void deleteZipEntry(File zipFile,
