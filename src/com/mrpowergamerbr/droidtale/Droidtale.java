@@ -1,4 +1,4 @@
-package me.mrpowergamerbr.Droidtale;
+package com.mrpowergamerbr.droidtale;
 
 import java.awt.EventQueue;
 
