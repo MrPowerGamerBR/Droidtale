@@ -1,6 +1,8 @@
 # Droidtale
 Unofficial hacky Undertale port for Android.
 
+Official Website: http://droidtale.mrpowergamerbr.com/
+
 ## How this works?
 > Alphys made this, this only works on MTT BRANDED CELLPHONES(TM)
 
@@ -12,8 +14,4 @@ Based on this topic on /r/Underminers ( https://www.reddit.com/r/Underminers/com
 
 ## Known Issues
 
-* Needs a Joystick/Gamepad
-
-* If your SELinux is enforcing, you will need to root your phone.
-
-* Music doesn't work
+* Music sometimes stops working.
