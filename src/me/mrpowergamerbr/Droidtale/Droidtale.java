@@ -197,12 +197,12 @@ public class Droidtale {
 		path = file.toString();
 		textField.setText(file.toString());
 
-		UndertaleValidFolder uvf = isAValidUndertaleFolder(file);
-		if (uvf.equals(UndertaleValidFolder.VALID_FOLDER)) {
+		UndertaleFolderValue uvf = isAValidUndertaleFolder(file);
+		if (uvf.equals(UndertaleFolderValue.VALID_FOLDER)) {
 			lblInvalidFolderdatawin.setText("Valid Undertale Installation!");
 			btnCreateUndertaleApk.setEnabled(true);
 			return;
-		} else if (uvf.equals(UndertaleValidFolder.STEAM_VERSION)) {
+		} else if (uvf.equals(UndertaleFolderValue.STEAM_VERSION)) {
 			lblInvalidFolderdatawin.setText("Steam Version is Unsupported! Please open the UNDERTALE.exe in 7zip to extract it!");
 			btnCreateUndertaleApk.setEnabled(false);
 			return;
@@ -213,7 +213,7 @@ public class Droidtale {
 		}
 	}
 
-	public UndertaleValidFolder isAValidUndertaleFolder(final File folder) {
+	public UndertaleFolderValue isAValidUndertaleFolder(final File folder) {
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 
@@ -225,15 +225,15 @@ public class Droidtale {
 					label.setText("Please buy Undertale :)");
 				}
 				if (fileEntry.getName().equalsIgnoreCase("data.win")) {
-					return UndertaleValidFolder.VALID_FOLDER;
+					return UndertaleFolderValue.VALID_FOLDER;
 				}
 				if (fileEntry.getName().equalsIgnoreCase("UNDERTALE.exe")) {
 					System.out.println("Steam");
-					return UndertaleValidFolder.STEAM_VERSION;
+					return UndertaleFolderValue.STEAM_VERSION;
 				}
 			}
 		}
-		return UndertaleValidFolder.NOT_FOUND;
+		return UndertaleFolderValue.NOT_FOUND;
 	}
 
 	public static void deleteZipEntry(File zipFile,
