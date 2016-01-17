@@ -34,6 +34,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class Droidtale {
 
@@ -92,8 +94,9 @@ public class Droidtale {
 	 */
 	private void initialize() {
 		frmDroidtale = new JFrame();
+		frmDroidtale.getContentPane().setBackground(SystemColor.menu);
 		frmDroidtale.setTitle("Droidtale");
-		frmDroidtale.setBounds(100, 100, 450, 209);
+		frmDroidtale.setBounds(100, 100, 450, 340);
 		frmDroidtale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDroidtale.getContentPane().setLayout(null);
 
@@ -109,21 +112,21 @@ public class Droidtale {
 				}
 			}
 		});
-		btnSetUndertaleFolder.setBounds(12, 13, 162, 25);
+		btnSetUndertaleFolder.setBounds(12, 134, 162, 25);
 		frmDroidtale.getContentPane().add(btnSetUndertaleFolder);
 
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(180, 14, 240, 22);
+		textField.setBounds(186, 135, 240, 22);
 		frmDroidtale.getContentPane().add(textField);
 		textField.setColumns(10);
 
 		lblInvalidFolderdatawin = new JLabel("Invalid Folder! \"data.win\" missing!");
-		lblInvalidFolderdatawin.setBounds(12, 51, 408, 16);
+		lblInvalidFolderdatawin.setBounds(12, 172, 408, 16);
 		frmDroidtale.getContentPane().add(lblInvalidFolderdatawin);
 
 		label = new JLabel("");
-		label.setBounds(12, 69, 203, 16);
+		label.setBounds(12, 190, 203, 16);
 		frmDroidtale.getContentPane().add(label);
 
 		btnCreateUndertaleApk = new JButton("Create Undertale APK");
@@ -200,11 +203,11 @@ public class Droidtale {
 			}
 		});
 		btnCreateUndertaleApk.setEnabled(false);
-		btnCreateUndertaleApk.setBounds(117, 88, 217, 25);
+		btnCreateUndertaleApk.setBounds(107, 219, 217, 25);
 		frmDroidtale.getContentPane().add(btnCreateUndertaleApk);
 
 		progressBar = new JProgressBar();
-		progressBar.setBounds(12, 126, 408, 25);
+		progressBar.setBounds(12, 257, 408, 25);
 		frmDroidtale.getContentPane().add(progressBar);
 	}
 
