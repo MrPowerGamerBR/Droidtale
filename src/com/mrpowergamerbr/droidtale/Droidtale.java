@@ -36,7 +36,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
-import java.awt.Color;
 import java.awt.SystemColor;
 
 public class Droidtale {
