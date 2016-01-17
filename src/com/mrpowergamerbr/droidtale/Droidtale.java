@@ -188,6 +188,9 @@ public class Droidtale {
 				    progressBar.setValue(75);
 				    Process apkSigner = commandPrompt.exec("java -jar lib.jar -w testkey.x509.pem testkey.pk8 UndertaleWrapper.apk UndertaleWrapper_Signed.apk");
 				    apkSigner.waitFor();
+				    /*
+				     * TODO: Push the APK to the device if it has debugging enabled.
+				     */
 				} catch (IOException|InterruptedException e) {
 					/*
 					 * TODO: Better exception handling?
