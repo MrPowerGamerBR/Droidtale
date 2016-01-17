@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.mrpowergamerbr.droidtale.utils.TemmieUpdater;
+
 import javax.swing.JFileChooser;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -46,7 +48,10 @@ public class Droidtale {
 	private JLabel label;
 	private JButton btnCreateUndertaleApk;
 	private JProgressBar progressBar;
-
+	
+	public final static String name = "Droidtale";
+	public final static String version = "v1.0.0";
+	
 	/**
 	 * Launch the application.
 	 */
@@ -75,6 +80,9 @@ public class Droidtale {
 				try {
 					Droidtale window = new Droidtale();
 					window.frmDroidtale.setVisible(true);
+					
+					TemmieUpdater temmie = new TemmieUpdater();
+					temmie.startUpdater();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -88,7 +96,6 @@ public class Droidtale {
 	public Droidtale() {
 		initialize();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
