@@ -3,6 +3,14 @@ Unofficial hacky Undertale port for Android.
 
 Official Website: http://droidtale.mrpowergamerbr.com/
 
+# Deprecated!
+
+This was never updated since... a long time ago... So I decided to start from scratch the auto builder.
+
+Check the new repo here! https://github.com/MrPowerGamerBR/Droidtale-v2
+
+This is only kept for... I don't know, see how I improved at programming since the last year? Anyway, check the new repo.
+
 ## How this works?
 > Alphys made this, this only works on MTT BRANDED CELLPHONES(TM)
 
